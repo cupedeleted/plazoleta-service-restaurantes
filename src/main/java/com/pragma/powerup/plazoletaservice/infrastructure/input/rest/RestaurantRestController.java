@@ -1,4 +1,4 @@
-package com.pragma.powerup.plazoletaservice.infrastructure.output.rest;
+package com.pragma.powerup.plazoletaservice.infrastructure.input.rest;
 
 import com.pragma.powerup.plazoletaservice.application.dto.RestaurantRequestDto;
 import com.pragma.powerup.plazoletaservice.application.handler.RestaurantHandler;
