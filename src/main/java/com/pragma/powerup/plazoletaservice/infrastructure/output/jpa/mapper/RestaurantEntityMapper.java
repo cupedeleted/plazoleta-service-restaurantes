@@ -19,4 +19,17 @@ public class RestaurantEntityMapper {
         entity.setIdPropietario(domain.getIdPropietario());
         return entity;
     }
+
+    public static Restaurant toDomain(RestaurantEntity entity) {
+        if (entity == null) return null;
+        Restaurant domain = new Restaurant();
+        domain.setId(entity.getId());
+        domain.setNombre(entity.getNombre());
+        domain.setNit(entity.getNit());
+        domain.setDireccion(entity.getDireccion());
+        domain.setTelefono(entity.getTelefono());
+        domain.setUrlLogo(entity.getUrlLogo());
+        domain.setIdPropietario(entity.getIdPropietario());
+        return domain;
+    }
 }
