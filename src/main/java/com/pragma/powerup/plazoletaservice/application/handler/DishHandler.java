@@ -1,10 +1,10 @@
 package com.pragma.powerup.plazoletaservice.application.handler;
 
+import com.pragma.powerup.plazoletaservice.application.dto.DishRequestDto;
+import com.pragma.powerup.plazoletaservice.application.dto.DishUpdateRequestDto;
+import com.pragma.powerup.plazoletaservice.application.mapper.DishRequestMapper;
 import com.pragma.powerup.plazoletaservice.domain.api.IDishServicePort;
 import com.pragma.powerup.plazoletaservice.domain.model.Dish;
-import com.pragma.powerup.plazoletaservice.infrastructure.input.rest.dto.DishRequestDto;
-import com.pragma.powerup.plazoletaservice.infrastructure.input.rest.mapper.DishRequestMapper;
-import com.pragma.powerup.plazoletaservice.infrastructure.input.rest.dto.DishUpdateRequestDto;
 
 import org.springframework.stereotype.Service;
 

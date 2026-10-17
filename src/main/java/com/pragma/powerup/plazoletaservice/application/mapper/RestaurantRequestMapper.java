@@ -1,7 +1,7 @@
-package com.pragma.powerup.plazoletaservice.infrastructure.input.rest.mapper;
+package com.pragma.powerup.plazoletaservice.application.mapper;
 
+import com.pragma.powerup.plazoletaservice.application.dto.RestaurantRequestDto;
 import com.pragma.powerup.plazoletaservice.domain.model.Restaurant;
-import com.pragma.powerup.plazoletaservice.infrastructure.input.rest.dto.RestaurantRequestDto;
 
 public class RestaurantRequestMapper {
 

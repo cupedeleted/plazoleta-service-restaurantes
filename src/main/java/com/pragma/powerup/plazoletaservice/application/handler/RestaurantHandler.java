@@ -1,9 +1,9 @@
 package com.pragma.powerup.plazoletaservice.application.handler;
 
+import com.pragma.powerup.plazoletaservice.application.dto.RestaurantRequestDto;
+import com.pragma.powerup.plazoletaservice.application.mapper.RestaurantRequestMapper;
 import com.pragma.powerup.plazoletaservice.domain.api.IRestaurantServicePort;
 import com.pragma.powerup.plazoletaservice.domain.model.Restaurant;
-import com.pragma.powerup.plazoletaservice.infrastructure.input.rest.dto.RestaurantRequestDto;
-import com.pragma.powerup.plazoletaservice.infrastructure.input.rest.mapper.RestaurantRequestMapper;
 
 import org.springframework.stereotype.Service;
 
