@@ -1,7 +1,8 @@
 package com.pragma.powerup.plazoletaservice.infrastructure.input.rest;
 
-import com.pragma.powerup.plazoletaservice.application.dto.RestaurantRequestDto;
 import com.pragma.powerup.plazoletaservice.application.handler.RestaurantHandler;
+import com.pragma.powerup.plazoletaservice.infrastructure.input.rest.dto.RestaurantRequestDto;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
