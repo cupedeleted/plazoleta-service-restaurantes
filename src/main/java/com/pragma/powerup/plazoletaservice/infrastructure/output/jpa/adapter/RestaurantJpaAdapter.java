@@ -6,6 +6,8 @@ import com.pragma.powerup.plazoletaservice.infrastructure.output.jpa.entity.Rest
 import com.pragma.powerup.plazoletaservice.infrastructure.output.jpa.mapper.RestaurantEntityMapper;
 import com.pragma.powerup.plazoletaservice.infrastructure.output.jpa.repository.IRestaurantRepository;
 
+import java.util.Optional;
+
 public class RestaurantJpaAdapter implements IRestaurantPersistencePort {
 
     private final IRestaurantRepository restaurantRepository;
@@ -18,5 +20,11 @@ public class RestaurantJpaAdapter implements IRestaurantPersistencePort {
     public void saveRestaurant(Restaurant restaurant) {
         RestaurantEntity entity = RestaurantEntityMapper.toEntity(restaurant);
         restaurantRepository.save(entity);
+    }
+
+    @Override
+    public Restaurant findById(Long id) {
+        Optional<RestaurantEntity> entityOptional = restaurantRepository.findById(id);
+        return entityOptional.map(RestaurantEntityMapper::toDomain).orElse(null);
     }
 }
