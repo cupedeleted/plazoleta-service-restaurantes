@@ -52,12 +52,41 @@ public class DishUseCase implements IDishServicePort {
             throw new IllegalArgumentException("La descprcion no debe estar vacia.");
         }
         Dish dish = dishPersistencePort.findById(id);
-        if(dish == null ){
+        if (dish == null) {
             throw new DishNotFoundException(id);
-    }
-    dish.setPrecio(precio);
-    dish.setDescripcion(descripcion);
+        }
+        dish.setPrecio(precio);
+        dish.setDescripcion(descripcion);
 
-    this.dishPersistencePort.saveDish(dish);
-}
+        this.dishPersistencePort.saveDish(dish);
+    }
+
+    @Override
+    public void changeDishStatus(Long id, Boolean activo, Long idPropietarioSolicitante) {
+
+        if (activo == null) {
+            throw new IllegalArgumentException("El estado del plato no puede estar vacío.");
+        }
+
+        Dish dish = dishPersistencePort.findById(id);
+
+        if (dish == null) {
+            throw new DishNotFoundException(id);
+        }
+
+        Restaurant restaurant = restaurantPersistencePort.findById(dish.getIdRestaurante());
+
+        if (restaurant == null) {
+            throw new IllegalArgumentException("El restaurante del plato no existe.");
+        }
+
+        if (restaurant.getIdPropietario() == null
+                || !restaurant.getIdPropietario().equals(idPropietarioSolicitante)) {
+            throw new IllegalArgumentException(
+                    "Solo el propietario del restaurante puede habilitar o deshabilitar sus platos.");
+        }
+
+        dish.setActivo(activo);
+        dishPersistencePort.saveDish(dish);
+    }
 }

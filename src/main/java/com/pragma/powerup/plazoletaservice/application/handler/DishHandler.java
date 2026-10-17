@@ -25,4 +25,7 @@ public class DishHandler {
     public void updateDish(Long id, DishUpdateRequestDto dto) {
         dishServicePort.updateDish(id, dto.getPrecio(), dto.getDescripcion());
     }
+    public void changeDishStatus(Long id, Boolean activo, Long idPropietarioSolicitante){
+        dishServicePort.changeDishStatus(id, activo, idPropietarioSolicitante);
+}
 }
