@@ -2,6 +2,7 @@ package com.pragma.powerup.plazoletaservice.infrastructure.input.rest;
 
 import com.pragma.powerup.plazoletaservice.application.handler.DishHandler;
 import com.pragma.powerup.plazoletaservice.infrastructure.input.rest.dto.DishRequestDto;
+import com.pragma.powerup.plazoletaservice.infrastructure.input.rest.dto.DishUpdateRequestDto;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,5 +22,12 @@ public class DishRestController {
     public ResponseEntity<Void> saveDish(@RequestBody DishRequestDto dishRequestDto) {
         dishHandler.saveDish(dishRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateDish(@PathVariable Long id,
+            @RequestBody DishUpdateRequestDto dto) {
+        dishHandler.updateDish(id, dto);
+        return ResponseEntity.ok().build();
     }
 }
