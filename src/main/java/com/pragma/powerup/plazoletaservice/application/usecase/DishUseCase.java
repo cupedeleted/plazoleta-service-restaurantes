@@ -1,6 +1,7 @@
-package com.pragma.powerup.plazoletaservice.domain.usecase;
+package com.pragma.powerup.plazoletaservice.application.usecase;
 
 import com.pragma.powerup.plazoletaservice.domain.api.IDishServicePort;
+import com.pragma.powerup.plazoletaservice.domain.exception.DishNotFoundException;
 import com.pragma.powerup.plazoletaservice.domain.model.Dish;
 import com.pragma.powerup.plazoletaservice.domain.model.Restaurant;
 import com.pragma.powerup.plazoletaservice.domain.spi.IDishPersistencePort;
@@ -29,7 +30,8 @@ public class DishUseCase implements IDishServicePort {
             throw new IllegalArgumentException("El restaurante especificado no existe.");
         }
 
-        // Validar que quien intenta crear el plato sea el verdadero propietario del restaurante
+        // Validar que quien intenta crear el plato sea el verdadero propietario del
+        // restaurante
         if (!restaurant.getIdPropietario().equals(idPropietarioSolicitante)) {
             throw new IllegalArgumentException("Solo el propietario del restaurante puede crear platos en él.");
         }
@@ -39,4 +41,23 @@ public class DishUseCase implements IDishServicePort {
 
         this.dishPersistencePort.saveDish(dish);
     }
+
+    @Override
+    public void updateDish(Long id, Integer precio, String descripcion) {
+        if (precio == null || precio <= 0) {
+
+            throw new IllegalArgumentException("El precio debe ser un valor numérico mayor a 0.");
+        }
+        if (descripcion == null || descripcion.isBlank()) {
+            throw new IllegalArgumentException("La descprcion no debe estar vacia.");
+        }
+        Dish dish = dishPersistencePort.findById(id);
+        if(dish == null ){
+            throw new DishNotFoundException(id);
+    }
+    dish.setPrecio(precio);
+    dish.setDescripcion(descripcion);
+
+    this.dishPersistencePort.saveDish(dish);
+}
 }

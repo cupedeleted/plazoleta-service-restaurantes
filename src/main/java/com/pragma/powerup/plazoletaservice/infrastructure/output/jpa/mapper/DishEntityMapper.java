@@ -5,10 +5,12 @@ import com.pragma.powerup.plazoletaservice.infrastructure.output.jpa.entity.Dish
 
 public class DishEntityMapper {
 
-    private DishEntityMapper() {}
+    private DishEntityMapper() {
+    }
 
     public static DishEntity toEntity(Dish domain) {
-        if (domain == null) return null;
+        if (domain == null)
+            return null;
         DishEntity entity = new DishEntity();
         entity.setId(domain.getId());
         entity.setNombre(domain.getNombre());
@@ -19,5 +21,19 @@ public class DishEntityMapper {
         entity.setUrlImagen(domain.getUrlImagen());
         entity.setActivo(domain.getActivo());
         return entity;
+    }
+
+    public static Dish toDomain(DishEntity entity) {
+        if (entity == null)
+            return null;
+        return new Dish(entity.getId(),
+                entity.getNombre(),
+                entity.getIdCategoria(),
+                entity.getDescripcion(),
+                entity.getPrecio(),
+                entity.getIdRestaurante(),
+                entity.getUrlImagen(),
+                entity.getActivo());
+
     }
 }

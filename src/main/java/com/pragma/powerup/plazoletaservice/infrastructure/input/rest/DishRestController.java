@@ -1,7 +1,8 @@
 package com.pragma.powerup.plazoletaservice.infrastructure.input.rest;
 
-import com.pragma.powerup.plazoletaservice.application.dto.DishRequestDto;
 import com.pragma.powerup.plazoletaservice.application.handler.DishHandler;
+import com.pragma.powerup.plazoletaservice.infrastructure.input.rest.dto.DishRequestDto;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

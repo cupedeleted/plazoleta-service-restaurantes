@@ -1,4 +1,4 @@
-package com.pragma.powerup.plazoletaservice.application.dto;
+package com.pragma.powerup.plazoletaservice.infrastructure.input.rest.dto;
 
 public class DishRequestDto {
     private String nombre;
