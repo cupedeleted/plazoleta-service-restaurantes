@@ -3,7 +3,6 @@ package com.pragma.powerup.plazoletaservice.application.usecase;
 import com.pragma.powerup.plazoletaservice.domain.model.Restaurant;
 import com.pragma.powerup.plazoletaservice.domain.spi.*;
 
-import com.pragma.powerup.plazoletaservice.domain.usecase.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
