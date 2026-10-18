@@ -1,12 +1,12 @@
 package com.pragma.powerup.plazoletaservice.infrastructure.configuration;
 
+import com.pragma.powerup.plazoletaservice.application.usecase.DishUseCase;
+import com.pragma.powerup.plazoletaservice.application.usecase.RestaurantUseCase;
 import com.pragma.powerup.plazoletaservice.domain.api.IDishServicePort;
 import com.pragma.powerup.plazoletaservice.domain.api.IRestaurantServicePort;
 import com.pragma.powerup.plazoletaservice.domain.spi.IDishPersistencePort;
 import com.pragma.powerup.plazoletaservice.domain.spi.IRestaurantPersistencePort;
 import com.pragma.powerup.plazoletaservice.domain.spi.IUserValidationPort;
-import com.pragma.powerup.plazoletaservice.domain.usecase.DishUseCase;
-import com.pragma.powerup.plazoletaservice.domain.usecase.RestaurantUseCase;
 import com.pragma.powerup.plazoletaservice.infrastructure.output.jpa.adapter.DishJpaAdapter;
 import com.pragma.powerup.plazoletaservice.infrastructure.output.jpa.adapter.RestaurantJpaAdapter;
 import com.pragma.powerup.plazoletaservice.infrastructure.output.jpa.repository.IDishRepository;

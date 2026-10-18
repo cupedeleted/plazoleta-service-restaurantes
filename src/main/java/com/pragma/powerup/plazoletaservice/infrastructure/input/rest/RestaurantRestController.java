@@ -2,8 +2,12 @@ package com.pragma.powerup.plazoletaservice.infrastructure.input.rest;
 
 import com.pragma.powerup.plazoletaservice.application.dto.RestaurantRequestDto;
 import com.pragma.powerup.plazoletaservice.application.handler.RestaurantHandler;
+
+import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,7 +21,8 @@ public class RestaurantRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> saveRestaurant(@RequestBody RestaurantRequestDto restaurantRequestDto) {
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    public ResponseEntity<Void> saveRestaurant(@Valid @RequestBody RestaurantRequestDto restaurantRequestDto) {
         restaurantHandler.saveRestaurant(restaurantRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
