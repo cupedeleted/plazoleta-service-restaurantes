@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -16,6 +15,7 @@ class RestaurantUseCaseTest {
     private IRestaurantPersistencePort persistencePort;
     private RestaurantUseCase restaurantUseCase;
     private IUserValidationPort userport;
+    private IRestaurantRepositoryPort restrepo;
 
     @BeforeEach
     void setUp() {
@@ -24,7 +24,7 @@ class RestaurantUseCaseTest {
         userport = Mockito.mock(IUserValidationPort.class);
         
         // Inicializamos el caso de uso inyectándole el mock
-        restaurantUseCase = new RestaurantUseCase(persistencePort, userport);
+        restaurantUseCase = new RestaurantUseCase(persistencePort, userport, restrepo);
     }
 
     @Test

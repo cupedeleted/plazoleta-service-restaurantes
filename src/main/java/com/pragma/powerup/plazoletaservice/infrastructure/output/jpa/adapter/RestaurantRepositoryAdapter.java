@@ -26,7 +26,7 @@ public class RestaurantRepositoryAdapter implements IRestaurantRepositoryPort {
 
     @Override
     public List<Restaurant> getRestaurantsPaginated(int page, int pageSize) {
-        return restaurantRepository.findAll(PageRequest.of(page, pageSize, Sort.by("nombre").ascending()))
+        return restaurantRepository.findAll(PageRequest.of(page, pageSize, Sort.by(RestaurantEntity::getNombre).ascending()))
                 .map(RestaurantEntityMapper::toDomain)
                 .getContent();
     }
