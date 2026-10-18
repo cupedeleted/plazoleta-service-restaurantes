@@ -1,6 +1,7 @@
 package com.pragma.powerup.plazoletaservice.application.mapper;
 
 import com.pragma.powerup.plazoletaservice.application.dto.RestaurantRequestDto;
+import com.pragma.powerup.plazoletaservice.application.dto.RestaurantResponseDto;
 import com.pragma.powerup.plazoletaservice.domain.model.Restaurant;
 
 public class RestaurantRequestMapper {
@@ -18,5 +19,10 @@ public class RestaurantRequestMapper {
         restaurant.setUrlLogo(dto.getUrlLogo());
         restaurant.setIdPropietario(dto.getIdPropietario());
         return restaurant;
+    }
+
+    public static RestaurantResponseDto toResponseDto(Restaurant restaurant) {
+        if (restaurant == null) return null;
+        return new RestaurantResponseDto(restaurant.getNombre(), restaurant.getUrlLogo());
     }
 }

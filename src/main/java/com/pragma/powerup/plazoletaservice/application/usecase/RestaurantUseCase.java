@@ -4,17 +4,24 @@ import com.pragma.powerup.plazoletaservice.domain.api.IRestaurantServicePort;
 import com.pragma.powerup.plazoletaservice.domain.model.Restaurant;
 import com.pragma.powerup.plazoletaservice.domain.spi.IRestaurantPersistencePort;
 import com.pragma.powerup.plazoletaservice.domain.spi.IUserValidationPort;
+import com.pragma.powerup.plazoletaservice.domain.spi.IRestaurantRepositoryPort;
+
+import java.util.List;
 
 public class RestaurantUseCase implements IRestaurantServicePort {
 
     // Atributos
     private final IRestaurantPersistencePort restaurantPersistencePort;
     private final IUserValidationPort userValidationPort;
+    private final IRestaurantRepositoryPort restaurantRepositoryPort;
 
     // Constructor para inicializar los atributos
-    public RestaurantUseCase(IRestaurantPersistencePort restaurantPersistencePort, IUserValidationPort userValidationPort) {
+    public RestaurantUseCase(IRestaurantPersistencePort restaurantPersistencePort, IUserValidationPort userValidationPort, 
+        IRestaurantRepositoryPort restaurantRepositoryPort) {
+
         this.restaurantPersistencePort = restaurantPersistencePort;
         this.userValidationPort = userValidationPort;
+        this.restaurantRepositoryPort = restaurantRepositoryPort;
     }
 
     // Método para guardar un restaurante
@@ -41,5 +48,10 @@ public class RestaurantUseCase implements IRestaurantServicePort {
         }
 
         this.restaurantPersistencePort.saveRestaurant(restaurant);
+    }
+
+    @Override
+    public List<Restaurant> getRestaurantsPaginated(int page, int pageSize) {
+        return restaurantRepositoryPort.getRestaurantsPaginated(page, pageSize);
     }
 }
