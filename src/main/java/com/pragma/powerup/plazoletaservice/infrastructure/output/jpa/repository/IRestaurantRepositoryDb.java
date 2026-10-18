@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface IRestaurantRepositoryDb extends JpaRepository<RestaurantEntity, Long> {
     //Método para obtener los restaurantes paginados
-    List<RestaurantEntity> findAllByOrderByNameAsc(Pageable pageable);
+    List<RestaurantEntity> findAllByOrderByNombreAsc(Pageable pageable);
 }
