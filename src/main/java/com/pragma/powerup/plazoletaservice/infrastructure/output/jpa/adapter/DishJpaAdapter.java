@@ -19,4 +19,10 @@ public class DishJpaAdapter implements IDishPersistencePort {
         DishEntity entity = DishEntityMapper.toEntity(dish);
         dishRepository.save(entity);
     }
+
+    @Override
+    public Dish findById(Long id) {
+        return dishRepository.findById(id).map(DishEntityMapper::toDomain).orElse(null);
+
+    }
 }

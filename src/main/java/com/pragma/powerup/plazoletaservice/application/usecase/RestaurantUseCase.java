@@ -1,4 +1,4 @@
-package com.pragma.powerup.plazoletaservice.domain.usecase;
+package com.pragma.powerup.plazoletaservice.application.usecase;
 
 import com.pragma.powerup.plazoletaservice.domain.api.IRestaurantServicePort;
 import com.pragma.powerup.plazoletaservice.domain.model.Restaurant;
