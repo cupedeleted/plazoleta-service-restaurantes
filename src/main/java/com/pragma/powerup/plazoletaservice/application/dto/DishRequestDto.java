@@ -1,15 +1,12 @@
 package com.pragma.powerup.plazoletaservice.application.dto;
 
 public class DishRequestDto {
-    private String nombre;
-    private Long idCategoria;
-    private String descripcion;
-    private Integer precio;
-    private Long idRestaurante;
-    private String urlImagen;
-    private Long idPropietario; // Representa al propietario autenticado/solicitante
-
-    public DishRequestDto() {}
+    @NotBlank private String nombre;
+    @NotNull  private Long idCategoria;
+    @NotBlank private String descripcin;
+    @NotNull  @Positive private Integer precio;
+    @NotNull private Long idRestaurante;
+    @NotBlank private String urlImagen;
 
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
