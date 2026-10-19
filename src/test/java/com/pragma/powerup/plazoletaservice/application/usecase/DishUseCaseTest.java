@@ -1,4 +1,3 @@
-
 package com.pragma.powerup.plazoletaservice.application.usecase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,7 +15,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.pragma.powerup.plazoletaservice.application.usecase.DishUseCase;
 import com.pragma.powerup.plazoletaservice.domain.exception.DishNotFoundException;
 import com.pragma.powerup.plazoletaservice.domain.model.Dish;
 import com.pragma.powerup.plazoletaservice.domain.model.Restaurant;
