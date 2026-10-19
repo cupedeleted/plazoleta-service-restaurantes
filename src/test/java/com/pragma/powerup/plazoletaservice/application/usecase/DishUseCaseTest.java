@@ -1,5 +1,5 @@
 
-package com.pragma.powerup.plazoletaservice.application;
+package com.pragma.powerup.plazoletaservice.application.usecase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
