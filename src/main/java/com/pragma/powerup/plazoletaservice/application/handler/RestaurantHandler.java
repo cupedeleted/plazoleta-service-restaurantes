@@ -32,4 +32,8 @@ public class RestaurantHandler {
                 .map(RestaurantRequestMapper::toResponseDto)
                 .toList();
     }
+
+    public boolean isOwnerOfRestaurant(Long idRestaurante, Long idPropietario){
+        return restaurantServicePort.isOwnerOfRestaurant(idRestaurante, idPropietario);
+    }
 }

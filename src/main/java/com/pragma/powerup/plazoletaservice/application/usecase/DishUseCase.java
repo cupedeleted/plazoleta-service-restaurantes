@@ -6,87 +6,73 @@ import com.pragma.powerup.plazoletaservice.domain.model.Dish;
 import com.pragma.powerup.plazoletaservice.domain.model.Restaurant;
 import com.pragma.powerup.plazoletaservice.domain.spi.IDishPersistencePort;
 import com.pragma.powerup.plazoletaservice.domain.spi.IRestaurantPersistencePort;
+import com.pragma.powerup.plazoletaservice.domain.exception.AccesoNoPermitido;
 
 public class DishUseCase implements IDishServicePort {
 
     private final IDishPersistencePort dishPersistencePort;
     private final IRestaurantPersistencePort restaurantPersistencePort;
 
-    public DishUseCase(IDishPersistencePort dishPersistencePort, IRestaurantPersistencePort restaurantPersistencePort) {
+    public DishUseCase(IDishPersistencePort dishPersistencePort,
+            IRestaurantPersistencePort restaurantPersistencePort) {
         this.dishPersistencePort = dishPersistencePort;
         this.restaurantPersistencePort = restaurantPersistencePort;
     }
 
     @Override
     public void saveDish(Dish dish, Long idPropietarioSolicitante) {
-        // Validar que el precio sea mayor a 0
-        if (dish.getPrecio() == null || dish.getPrecio() <= 0) {
-            throw new IllegalArgumentException("El precio debe ser un valor numérico mayor a 0.");
-        }
-
-        // Consultar existencia del restaurante
-        Restaurant restaurant = restaurantPersistencePort.findById(dish.getIdRestaurante());
-        if (restaurant == null) {
-            throw new IllegalArgumentException("El restaurante especificado no existe.");
-        }
-
-        // Validar que quien intenta crear el plato sea el verdadero propietario del
-        // restaurante
-        if (!restaurant.getIdPropietario().equals(idPropietarioSolicitante)) {
-            throw new IllegalArgumentException("Solo el propietario del restaurante puede crear platos en él.");
-        }
-
-        // Estado activo por defecto
+        validarPrecio(dish.getPrecio());
+        Restaurant restaurant = obtenerRestaurante(dish.getIdRestaurante());
+        validarPropietario(restaurant, idPropietarioSolicitante);
         dish.setActivo(true);
-
-        this.dishPersistencePort.saveDish(dish);
+        dishPersistencePort.saveDish(dish);
     }
 
     @Override
-    public void updateDish(Long id, Integer precio, String descripcion) {
-        if (precio == null || precio <= 0) {
-
-            throw new IllegalArgumentException("El precio debe ser un valor numérico mayor a 0.");
-        }
+    public void updateDish(Long id, Integer precio, String descripcion, Long idPropietarioSolicitante) {
+        Dish dish = obtenerPlato(id);
+        validarPropietario(obtenerRestaurante(dish.getIdRestaurante()), idPropietarioSolicitante);
+        validarPrecio(precio);
         if (descripcion == null || descripcion.isBlank()) {
-            throw new IllegalArgumentException("La descprcion no debe estar vacia.");
-        }
-        Dish dish = dishPersistencePort.findById(id);
-        if (dish == null) {
-            throw new DishNotFoundException(id);
+            throw new IllegalArgumentException("La descripción no debe estar vacía.");
         }
         dish.setPrecio(precio);
         dish.setDescripcion(descripcion);
-
-        this.dishPersistencePort.saveDish(dish);
+        dishPersistencePort.saveDish(dish);
     }
 
     @Override
     public void changeDishStatus(Long id, Boolean activo, Long idPropietarioSolicitante) {
-
+        Dish dish = obtenerPlato(id);
+        validarPropietario(obtenerRestaurante(dish.getIdRestaurante()), idPropietarioSolicitante);
         if (activo == null) {
             throw new IllegalArgumentException("El estado del plato no puede estar vacío.");
         }
-
-        Dish dish = dishPersistencePort.findById(id);
-
-        if (dish == null) {
-            throw new DishNotFoundException(id);
-        }
-
-        Restaurant restaurant = restaurantPersistencePort.findById(dish.getIdRestaurante());
-
-        if (restaurant == null) {
-            throw new IllegalArgumentException("El restaurante del plato no existe.");
-        }
-
-        if (restaurant.getIdPropietario() == null
-                || !restaurant.getIdPropietario().equals(idPropietarioSolicitante)) {
-            throw new IllegalArgumentException(
-                    "Solo el propietario del restaurante puede habilitar o deshabilitar sus platos.");
-        }
-
         dish.setActivo(activo);
         dishPersistencePort.saveDish(dish);
+    }
+
+    private void validarPrecio(Integer precio) {
+        if (precio == null || precio <= 0) {
+            throw new IllegalArgumentException("El precio debe ser un valor numérico mayor a 0.");
+        }
+    }
+
+    private Dish obtenerPlato(Long id) {
+        Dish dish = dishPersistencePort.findById(id);
+        if (dish == null) throw new DishNotFoundException(id);
+        return dish;
+    }
+
+    private Restaurant obtenerRestaurante(Long id) {
+        Restaurant restaurant = restaurantPersistencePort.findById(id);
+        if (restaurant == null) throw new IllegalArgumentException("El restaurante especificado no existe.");
+        return restaurant;
+    }
+
+    private void validarPropietario(Restaurant restaurant, Long idSolicitante) {
+        if (restaurant.getIdPropietario() == null || !restaurant.getIdPropietario().equals(idSolicitante)) {
+            throw new AccesoNoPermitido("Solo el propietario del restaurante puede gestionar sus platos.");
+        }
     }
 }

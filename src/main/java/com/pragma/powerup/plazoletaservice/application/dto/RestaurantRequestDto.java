@@ -1,13 +1,16 @@
 package com.pragma.powerup.plazoletaservice.application.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class RestaurantRequestDto {
     // Atributos
-    private String nombre;
-    private String nit;
-    private String direccion;
-    private String telefono;
-    private String urlLogo;
-    private Long idPropietario;
+    @NotBlank @NotNull private String nombre;
+    @NotBlank @NotNull private String nit;
+    @NotBlank @NotNull private String direccion;
+    @NotBlank @NotNull private String telefono;
+    @NotBlank @NotNull private String urlLogo;
+    @NotBlank @NotNull private Long idPropietario;
 
     // Constructor por defecto
     public RestaurantRequestDto() {}

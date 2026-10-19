@@ -39,7 +39,7 @@ class DishUseCaseTest {
     void modificaSoloPrecioYDescripcion() {
         when(dishPersistencePort.findById(1L)).thenReturn(platoExistente());
 
-        dishUseCase.updateDish(1L, 30000, "Con chicharrón y arepa");
+        dishUseCase.updateDish(1L, 30000, "Con chicharrón y arepa", 10L);
 
         ArgumentCaptor<Dish> captor = ArgumentCaptor.forClass(Dish.class);
         verify(dishPersistencePort).saveDish(captor.capture());
@@ -60,26 +60,26 @@ class DishUseCaseTest {
     void platoNoExiste() {
         when(dishPersistencePort.findById(99L)).thenReturn(null);
 
-        assertThrows(DishNotFoundException.class, () -> dishUseCase.updateDish(99L, 30000, "Nueva descripción"));
+        assertThrows(DishNotFoundException.class, () -> dishUseCase.updateDish(99L, 30000, "Nueva descripción", null));
 
         verify(dishPersistencePort, never()).saveDish(org.mockito.ArgumentMatchers.any());
     }
 
     @Test
     void precioCero() {
-        assertThrows(IllegalArgumentException.class, () -> dishUseCase.updateDish(1L, 0, "Nueva descripción"));
+        assertThrows(IllegalArgumentException.class, () -> dishUseCase.updateDish(1L, 0, "Nueva descripción", null));
         verifyNoInteractions(dishPersistencePort);
     }
 
     @Test
     void precioNulo() {
-        assertThrows(IllegalArgumentException.class, () -> dishUseCase.updateDish(1L, null, "Nueva descripción"));
+        assertThrows(IllegalArgumentException.class, () -> dishUseCase.updateDish(1L, null, "Nueva descripción", null));
         verifyNoInteractions(dishPersistencePort);
     }
 
     @Test
     void descripcionVacia() {
-        assertThrows(IllegalArgumentException.class, () -> dishUseCase.updateDish(1L, 30000, "  "));
+        assertThrows(IllegalArgumentException.class, () -> dishUseCase.updateDish(1L, 30000, "  ", null));
         verifyNoInteractions(dishPersistencePort);
     }
 

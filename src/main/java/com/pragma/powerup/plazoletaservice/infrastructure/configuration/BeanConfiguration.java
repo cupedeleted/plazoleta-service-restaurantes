@@ -8,11 +8,14 @@ import com.pragma.powerup.plazoletaservice.domain.spi.IDishPersistencePort;
 import com.pragma.powerup.plazoletaservice.domain.spi.IRestaurantPersistencePort;
 import com.pragma.powerup.plazoletaservice.domain.spi.IRestaurantRepositoryPort;
 import com.pragma.powerup.plazoletaservice.domain.spi.IUserValidationPort;
+import com.pragma.powerup.plazoletaservice.infrastructure.output.client.UsuariosHttpAdapter;
 import com.pragma.powerup.plazoletaservice.infrastructure.output.jpa.adapter.DishJpaAdapter;
 import com.pragma.powerup.plazoletaservice.infrastructure.output.jpa.adapter.RestaurantJpaAdapter;
 import com.pragma.powerup.plazoletaservice.infrastructure.output.jpa.adapter.RestaurantRepositoryAdapter;
 import com.pragma.powerup.plazoletaservice.infrastructure.output.jpa.repository.IDishRepository;
 import com.pragma.powerup.plazoletaservice.infrastructure.output.jpa.repository.IRestaurantRepository;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,14 +24,15 @@ public class BeanConfiguration {
 
     private final IRestaurantRepository restaurantRepository;
     private final IDishRepository dishRepository;
-    private final IUserValidationPort userValidationPort;
 
-    public BeanConfiguration(IRestaurantRepository restaurantRepository, 
-                             IDishRepository dishRepository, 
-                             IUserValidationPort userValidationPort) {
+    public BeanConfiguration(IRestaurantRepository restaurantRepository, IDishRepository dishRepository) {
         this.restaurantRepository = restaurantRepository;
         this.dishRepository = dishRepository;
-        this.userValidationPort = userValidationPort;
+    }
+
+    @Bean
+    public IUserValidationPort userValidationPort(@Value("${usuarios.service.url}") String usuariosServiceUrl) {
+        return new UsuariosHttpAdapter(usuariosServiceUrl);
     }
 
     @Bean
@@ -47,7 +51,7 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public IRestaurantServicePort restaurantServicePort() {
+    public IRestaurantServicePort restaurantServicePort(IUserValidationPort userValidationPort) {
         return new RestaurantUseCase(restaurantPersistencePort(), userValidationPort, restaurantRepositoryPort());
     }
 

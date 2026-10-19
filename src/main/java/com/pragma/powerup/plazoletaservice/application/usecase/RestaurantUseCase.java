@@ -54,4 +54,10 @@ public class RestaurantUseCase implements IRestaurantServicePort {
     public List<Restaurant> getRestaurantsPaginated(int page, int pageSize) {
         return restaurantRepositoryPort.getRestaurantsPaginated(page, pageSize);
     }
+
+    @Override
+    public boolean isOwnerOfRestaurant(Long idRestaurante, Long idPropietario){
+        Restaurant restaurant = restaurantPersistencePort.findById(idRestaurante);
+        return restaurant != null && restaurant.getIdPropietario().equals(idPropietario);
+    }
 }

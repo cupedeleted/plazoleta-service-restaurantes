@@ -7,4 +7,5 @@ public interface IRestaurantServicePort {
     // Métodos
     void saveRestaurant(Restaurant restaurant);
     List<Restaurant> getRestaurantsPaginated(int page, int pageSize);
+    boolean isOwnerOfRestaurant(Long idRestaurante, Long IdPropietario);
 }
