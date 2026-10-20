@@ -36,4 +36,16 @@ public class SecurityConfig {
             .addFilterBefore(new JwtTokenFilter(jwtTokenService), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
+    @Bean
+CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration cfg = new CorsConfiguration();
+    cfg.setAllowedOriginPatterns(List.of("*"));
+    cfg.setAllowedMethods(List.of("GET","POST","PUT","PATCH","DELETE","OPTIONS"));
+    cfg.setAllowedHeaders(List.of("*"));
+    cfg.setAllowCredentials(false);
+    UrlBasedCorsConfigurationSource src = new UrlBasedCorsConfigurationSource();
+    src.registerCorsConfiguration("/**", cfg);
+    return src;
+}
 }
